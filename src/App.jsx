@@ -1,3 +1,5 @@
+
+import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
@@ -8,6 +10,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/"           element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
         <Route path="/agents"     element={<AgentManagement />} />
         <Route path="/missions"   element={<Missions />} />
         <Route path="/litiges"    element={<Litiges />} />
