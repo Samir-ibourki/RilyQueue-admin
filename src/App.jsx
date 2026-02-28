@@ -3,7 +3,8 @@ import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
-import { Dashboard, Missions, Litiges, AuditLogs, Profil } from "./pages/Placeholders.jsx";
+import Litiges from "./pages/Litiges.jsx";
+import { Dashboard, Missions, AuditLogs, Profil } from "./pages/Placeholders.jsx";
 
 export default function App() {
   return (
