@@ -12,9 +12,9 @@ export function Missions() {
   return <Placeholder title="Missions" />;
 }
 
-export function Litiges() {
-  return <Placeholder title="Litiges" />;
-}
+// export function Litiges() {
+//   return <Placeholder title="Litiges" />;
+// }
 
 export function AuditLogs() {
   return <Placeholder title="Audit Logs" />;
