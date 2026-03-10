@@ -3,8 +3,25 @@ import api from './axios';
 export const DashboardAPI = {
   fetchStatistics: async () => {
     try {
-      const response = await api.get('/dashboard/stats');
-      return response.data;
+      // Fetching all necessary resources from MVP endpoints for Admin
+      const [missionsRes, agentsRes, disputesRes] = await Promise.all([
+        api.get('/admin/missions'),
+        api.get('/admin/agents'),
+        api.get('/admin/disputes')
+      ]);
+      
+      const missions = missionsRes.data || [];
+      const agents = agentsRes.data || [];
+      const disputes = disputesRes.data || [];
+
+      return {
+        missionsCreated: missions.length || 0,
+        missionsPaid: "$ 0", // Can be calculated based on paid missions later
+        openLitiges: disputes.length || 0,
+        averageTrustScore: "Silver",
+        pendingAgents: agents.filter(a => a.status === 'pending').length || 0,
+        activeAgents: agents.filter(a => a.status === 'active').length || 0,
+      };
     } catch (e) {
       console.error('Failed fetching stats, returning mock', e);
       // Fallback
@@ -21,8 +38,11 @@ export const DashboardAPI = {
   
   fetchLineChartData: async () => {
     try {
-      const response = await api.get('/dashboard/line-chart');
-      return response.data;
+      // Replace with specific metric/aggregation backend endpoints once created
+      await api.get('/admin/missions');
+      // For MVP, if returning raw items, you'd aggregate them into days here.
+      // Returning mock for safety until aggregation logic matches backend structure.
+      throw new Error("Aggregation not implemented for chart");
     } catch (e) {
       console.error(e);
       return [
@@ -39,8 +59,9 @@ export const DashboardAPI = {
 
   fetchPieChartData: async () => {
     try {
-      const response = await api.get('/dashboard/pie-chart');
-      return response.data;
+      await api.get('/admin/missions');
+      // Aggregation logic placeholder
+      throw new Error("Aggregation not implemented for chart");
     } catch (e) {
       console.error(e);
       return [
