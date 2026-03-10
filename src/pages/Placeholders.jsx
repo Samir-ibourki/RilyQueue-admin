@@ -11,10 +11,6 @@ export function AuditLogs() {
   return <Placeholder title="Audit Logs" />;
 }
 
-export function Profil() {
-  return <Placeholder title="Profil" />;
-}
-
 function Placeholder({ title }) {
   return (
     <div>

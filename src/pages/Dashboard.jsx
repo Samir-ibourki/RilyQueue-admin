@@ -21,99 +21,84 @@ import {
   Legend,
 } from "recharts";
 
-const lineData = [
-  { name: "Feb 18", missions: 12 },
-  { name: "Feb 19", missions: 19 },
-  { name: "Feb 20", missions: 15 },
-  { name: "Feb 21", missions: 22 },
-  { name: "Feb 22", missions: 18 },
-  { name: "Feb 23", missions: 25 },
-  { name: "Feb 24", missions: 30 },
-];
-
-const pieData = [
-  { name: "Queue", value: 35, color: "#3b82f6" },
-  { name: "Depot", value: 25, color: "#65a30d" },
-  { name: "Recup", value: 20, color: "#f59e0b" },
-  { name: "Course", value: 20, color: "#ef4444" },
-];
+import { lineData, pieData } from "../mocks/dashboardData";
 
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-6 w-full max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold text-slate-800">Dashboard Overview</h1>
+      <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Dashboard Overview</h1>
 
       {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {/* Card 1 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Missions Created Today
           </span>
-          <div className="flex items-center gap-2 text-blue-500">
+          <div className="flex items-center gap-2 text-blue-500 dark:text-blue-400">
             <FileText strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight">30</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">30</span>
           </div>
         </div>
 
         {/* Card 2 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Missions Paid
           </span>
           <div className="flex items-center gap-2 text-green-500">
             <CircleDollarSign strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight">
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
               $ 142
             </span>
           </div>
         </div>
 
         {/* Card 3 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Open Litiges
           </span>
           <div className="flex items-center gap-2 text-red-500">
             <AlertTriangle strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight">8</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">8</span>
           </div>
         </div>
 
         {/* Card 4 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Average Trust Score
           </span>
           <div className="flex items-center gap-2 text-amber-500">
             <Trophy strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight text-amber-500">
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
               Silver
             </span>
           </div>
         </div>
 
         {/* Card 5 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Pending Agents
           </span>
-          <div className="flex items-center gap-2 text-amber-600">
+          <div className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
             <UserPlus strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight text-amber-600">
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
               12
             </span>
           </div>
         </div>
 
         {/* Card 6 */}
-        <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-sm flex flex-col justify-between">
-          <span className="text-[13px] text-slate-500 font-medium mb-3 tracking-wide">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg p-5 shadow-sm flex flex-col justify-between">
+          <span className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mb-3 tracking-wide">
             Active Agents
           </span>
           <div className="flex items-center gap-2 text-green-500">
             <UserCheck strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight">87</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">87</span>
           </div>
         </div>
       </div>
@@ -121,9 +106,9 @@ export default function Dashboard() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Line Chart */}
-        <div className="bg-white border border-slate-200 rounded-lg shadow-sm lg:col-span-2 flex flex-col">
-          <div className="p-4 border-b border-slate-100">
-            <h2 className="text-sm font-bold text-slate-800">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg shadow-sm lg:col-span-2 flex flex-col">
+          <div className="p-4 border-b border-slate-100 dark:border-slate-700/50">
+            <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">
               Missions Per Day (Last 7 Days)
             </h2>
           </div>
@@ -192,9 +177,9 @@ export default function Dashboard() {
         </div>
 
         {/* Pie Chart */}
-        <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col">
-          <div className="p-4 border-b border-slate-100">
-            <h2 className="text-sm font-bold text-slate-800">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-lg shadow-sm flex flex-col">
+          <div className="p-4 border-b border-slate-100 dark:border-slate-700/50">
+            <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">
               Mission Categories
             </h2>
           </div>

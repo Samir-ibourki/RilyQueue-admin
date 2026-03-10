@@ -1,23 +1,24 @@
+import { Menu } from 'lucide-react';
+import { useThemeStore } from '../store/useTheme';
+
 export default function Topbar() {
+  const { toggleMobileMenu } = useThemeStore();
+
   return (
     <header
-      style={{
-        background: "#ffffff",
-        borderBottom: "1px solid #e2e8f0",
-        padding: "0 28px",
-        height: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexShrink: 0,
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-      }}
+      className="bg-white border-b border-slate-200 dark:bg-slate-900 dark:border-slate-800 flex items-center justify-between shrink-0 sticky top-0 z-10 px-4 md:px-7 h-[60px]"
     >
-      <span style={{ fontWeight: 700, fontSize: 18, color: "#38bdf8" }}>
-        RiLyQueue Admin
-      </span>
+      <div className="flex items-center gap-3">
+        <button 
+          onClick={toggleMobileMenu}
+          className="md:hidden text-slate-500 hover:text-slate-800 dark:hover:text-white"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+        <span className="font-bold text-lg text-blue-400">
+          RiLyQueue Admin
+        </span>
+      </div>
       <div
         style={{
           width: 36,

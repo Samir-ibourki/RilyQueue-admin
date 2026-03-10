@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { useThemeStore } from "../store/useTheme";
+import { X } from "lucide-react";
 
 const navItems = [
   { icon: "⊞", label: "Dashboard", path: "/" },
@@ -12,43 +14,54 @@ const navItems = [
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
+  const { isMobileMenuOpen, closeMobileMenu } = useThemeStore();
+  const location = useLocation();
+
+  // Close sidebar on route change when in mobile mode
+  useEffect(() => {
+    closeMobileMenu();
+  }, [location.pathname, closeMobileMenu]);
 
   return (
-    <aside
-      style={{
-        width: collapsed ? 64 : 210,
-        background: "linear-gradient(180deg, #0f172a 0%, #1e293b 100%)",
-        color: "#cbd5e1",
-        display: "flex",
-        flexDirection: "column",
-        transition: "width 0.25s ease",
-        overflow: "hidden",
-        flexShrink: 0,
-        height: "100vh",
-        position: "sticky",
-        top: 0,
-      }}
-    >
-      {/* Logo */}
-      <div
+    <>
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-900/50 md:hidden"
+          onClick={closeMobileMenu}
+        />
+      )}
+
+      {/* Main Sidebar */}
+      <aside
+        className={`flex flex-col shrink-0 h-screen overflow-hidden transition-[width,transform] duration-250 ease-in text-slate-300 dark:bg-slate-950 bg-gradient-to-b from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 fixed md:sticky top-0 z-50 md:z-0
+        ${isMobileMenuOpen ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0"}`}
         style={{
-          padding: "20px 16px 16px",
-          borderBottom: "1px solid #334155",
-          minHeight: 60,
-          display: "flex",
-          alignItems: "center",
+          width: !isMobileMenuOpen && collapsed ? 64 : undefined,
+          minWidth: !isMobileMenuOpen && !collapsed ? 210 : undefined,
         }}
       >
-        {collapsed ? (
-          <span style={{ color: "#38bdf8", fontWeight: 800, fontSize: 20 }}>R</span>
-        ) : (
-          <span style={{ fontWeight: 800, fontSize: 20, color: "#38bdf8", letterSpacing: "-0.5px", whiteSpace: "nowrap" }}>
-            RiLyQueue
-          </span>
-        )}
-      </div>
+        {/* Logo */}
+        <div
+          className="flex items-center justify-between px-4 pt-5 pb-4 border-b border-slate-700 min-h-[60px]"
+        >
+          {collapsed && !isMobileMenuOpen ? (
+            <span className="text-blue-400 font-extrabold text-xl mx-auto">R</span>
+          ) : (
+            <span className="font-extrabold text-xl text-blue-400 tracking-tight whitespace-nowrap">
+              RiLyQueue
+            </span>
+          )}
 
-      {/* Nav */}
+          {/* Close button inside mobile menu */}
+          <button
+            className="md:hidden text-slate-400 hover:text-white"
+            onClick={closeMobileMenu}
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
       <nav style={{ flex: 1, padding: "12px 0" }}>
         {navItems.map((item) => (
           <NavLink
@@ -104,6 +117,7 @@ export default function Sidebar() {
         </span>
         {!collapsed && <span>Collapse</span>}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }
