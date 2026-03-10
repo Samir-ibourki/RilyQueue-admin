@@ -5,7 +5,8 @@ import Layout from "./components/Layout.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profil from "./pages/Profil.jsx";
-import { Missions, Litiges, AuditLogs } from "./pages/Placeholders.jsx";
+import Missions from "./pages/Missions.jsx";
+import { Litiges, AuditLogs } from "./pages/Placeholders.jsx";
 
 export default function App() {
   return (
