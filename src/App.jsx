@@ -6,6 +6,8 @@ import AgentManagement from "./pages/Agentmanagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profil from "./pages/Profil.jsx";
 import { Missions, Litiges, AuditLogs } from "./pages/Placeholders.jsx";
+import { Dashboard, Litiges, AuditLogs, Profil } from "./pages/Placeholders.jsx";
+import Missions from "./pages/Missions";
 
 export default function App() {
   return (
