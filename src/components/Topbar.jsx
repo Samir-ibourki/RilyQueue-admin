@@ -1,5 +1,6 @@
 import { Menu } from 'lucide-react';
 import { useThemeStore } from '../store/useTheme';
+import { Link } from 'react-router-dom';
 
 export default function Topbar() {
   const { toggleMobileMenu } = useThemeStore();
@@ -19,7 +20,8 @@ export default function Topbar() {
           RiLyQueue Admin
         </span>
       </div>
-      <div
+      <Link
+        to="/profil"
         style={{
           width: 36,
           height: 36,
@@ -32,10 +34,11 @@ export default function Topbar() {
           fontWeight: 700,
           cursor: "pointer",
           fontSize: 15,
+          textDecoration: "none",
         }}
       >
         A
-      </div>
+      </Link>
     </header>
   );
 }

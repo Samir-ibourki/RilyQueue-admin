@@ -34,11 +34,10 @@ export default function Sidebar() {
 
       {/* Main Sidebar */}
       <aside
-        className={`flex flex-col shrink-0 h-screen overflow-hidden transition-[width,transform] duration-250 ease-in text-slate-300 dark:bg-slate-950 bg-gradient-to-b from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 fixed md:sticky top-0 z-50 md:z-0
-        ${isMobileMenuOpen ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0"}`}
+        className={`flex flex-col shrink-0 h-screen overflow-hidden transition-all duration-300 ease-in-out text-slate-300 dark:bg-slate-950 bg-gradient-to-b from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 border-r border-slate-800 fixed md:sticky top-0 z-50 md:z-0
+        ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
         style={{
-          width: !isMobileMenuOpen && collapsed ? 64 : undefined,
-          minWidth: !isMobileMenuOpen && !collapsed ? 210 : undefined,
+          width: collapsed && !isMobileMenuOpen ? 64 : 210,
         }}
       >
         {/* Logo */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   FileText,
   CircleDollarSign,
@@ -21,9 +21,42 @@ import {
   Legend,
 } from "recharts";
 
-import { lineData, pieData } from "../mocks/dashboardData";
+import { DashboardAPI } from "../api/dashboardApi";
+import { dashboardData } from "../utils/dashboardData"; // Added to avoid delay!
 
 export default function Dashboard() {
+  // Pre-load mock data so screen doesn't stay black and empty for 10 seconds of API timeout!
+  const [stats, setStats] = useState(dashboardData.stats);
+  const [lineChartData, setLineChartData] = useState(dashboardData.lineChart);
+  const [pieChartData, setPieChartData] = useState(dashboardData.pieChart);
+  
+  useEffect(() => {
+    // Attempt actual fetching
+    const initData = async () => {
+      try {
+        const st = await DashboardAPI.fetchStatistics();
+        const lc = await DashboardAPI.fetchLineChartData();
+        const pc = await DashboardAPI.fetchPieChartData();
+        
+        // Ensure valid objects received before setting new arrays.
+        if (st && lc && pc) {
+          setStats(st);
+          setLineChartData(lc);
+          setPieChartData(pc);
+        }
+      } catch (error) {
+        console.error("Dashboard fetch error:", error);
+      }
+    };
+    initData();
+  }, []);
+
+  if (!stats) return (
+    <div className="flex h-full w-full items-center justify-center text-slate-500">
+      Chargement du dashboard...
+    </div>
+  );
+
   return (
     <div className="flex flex-col gap-6 w-full max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Dashboard Overview</h1>
@@ -37,7 +70,7 @@ export default function Dashboard() {
           </span>
           <div className="flex items-center gap-2 text-blue-500 dark:text-blue-400">
             <FileText strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">30</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">{stats.missionsCreated}</span>
           </div>
         </div>
 
@@ -49,7 +82,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 text-green-500">
             <CircleDollarSign strokeWidth={2} className="w-5 h-5" />
             <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
-              $ 142
+              {stats.missionsPaid}
             </span>
           </div>
         </div>
@@ -61,7 +94,7 @@ export default function Dashboard() {
           </span>
           <div className="flex items-center gap-2 text-red-500">
             <AlertTriangle strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">8</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">{stats.openLitiges}</span>
           </div>
         </div>
 
@@ -73,7 +106,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 text-amber-500">
             <Trophy strokeWidth={2} className="w-5 h-5" />
             <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
-              Silver
+              {stats.averageTrustScore}
             </span>
           </div>
         </div>
@@ -86,7 +119,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 text-amber-600 dark:text-amber-500">
             <UserPlus strokeWidth={2} className="w-5 h-5" />
             <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">
-              12
+              {stats.pendingAgents}
             </span>
           </div>
         </div>
@@ -98,7 +131,7 @@ export default function Dashboard() {
           </span>
           <div className="flex items-center gap-2 text-green-500">
             <UserCheck strokeWidth={2} className="w-5 h-5" />
-            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">87</span>
+            <span className="text-[26px] font-medium tracking-tight text-slate-800 dark:text-slate-100">{stats.activeAgents}</span>
           </div>
         </div>
       </div>
@@ -115,7 +148,7 @@ export default function Dashboard() {
           <div className="p-5 flex-1 min-h-[340px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
-                data={lineData}
+                data={lineChartData}
                 margin={{ top: 10, right: 30, bottom: 20, left: -20 }}
               >
                 <CartesianGrid
@@ -187,7 +220,7 @@ export default function Dashboard() {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={pieData}
+                  data={pieChartData}
                   cx="50%"
                   cy="50%"
                   outerRadius={85}
@@ -211,7 +244,7 @@ export default function Dashboard() {
                       <text
                         x={x}
                         y={y}
-                        fill={pieData[index].color}
+                        fill={pieChartData[index].color}
                         textAnchor={x > cx ? "start" : "end"}
                         dominantBaseline="central"
                         fontSize={11}
@@ -222,7 +255,7 @@ export default function Dashboard() {
                     );
                   }}
                 >
-                  {pieData.map((entry, index) => (
+                  {pieChartData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={entry.color}
@@ -247,3 +280,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
