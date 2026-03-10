@@ -3,8 +3,10 @@ import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
-import { Dashboard, Litiges, AuditLogs, Profil } from "./pages/Placeholders.jsx";
-import Missions from "./pages/Missions";
+import Dashboard from "./pages/Dashboard.jsx";
+import Profil from "./pages/Profil.jsx";
+import Missions from "./pages/Missions.jsx";
+import { Litiges, AuditLogs } from "./pages/Placeholders.jsx";
 
 export default function App() {
   return (
