@@ -1,4 +1,12 @@
-import { Phone, Lock, ShieldCheck, Globe, LifeBuoy, AlertCircle, Clock } from "lucide-react";
+import {
+  Phone,
+  Lock,
+  ShieldCheck,
+  Globe,
+  LifeBuoy,
+  AlertCircle,
+  Clock,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRequestOtp, useVerifyOtp } from "../hooks/useLogin";
 
@@ -6,7 +14,7 @@ const Login = () => {
   const [step, setStep] = useState("phone");
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
-  const [timer, setTimer] = useState(0); 
+  const [timer, setTimer] = useState(0);
 
   const requestOtpMutation = useRequestOtp();
   const verifyOtpMutation = useVerifyOtp();
@@ -31,7 +39,7 @@ const Login = () => {
           setStep("otp");
           setTimer(60);
         },
-      }
+      },
     );
   };
 
@@ -58,7 +66,7 @@ const Login = () => {
       </header>
 
       {/* main content */}
-      <main className="flex-grow flex flex-col items-center justify-center p-6 gap-6">
+      <main className="grow flex flex-col items-center justify-center p-6 gap-6">
         <div className="text-center">
           <h1 className="text-4xl lg:text-5xl text-blue-600 font-bold mb-2 tracking-tight">
             RiLyQueue
@@ -79,8 +87,8 @@ const Login = () => {
             <div className="bg-red-50 border border-red-100 text-red-600 p-3 rounded-xl flex items-center gap-2 text-sm animate-pulse">
               <AlertCircle size={18} />
               <span>
-                {requestOtpMutation.isError 
-                  ? "Erreur lors de l'envoi du code. Réessayez." 
+                {requestOtpMutation.isError
+                  ? "Erreur lors de l'envoi du code. Réessayez."
                   : "Code OTP invalide ou expiré."}
               </span>
             </div>
@@ -138,14 +146,22 @@ const Login = () => {
 
           <button
             type="submit"
-            disabled={requestOtpMutation.isPending || verifyOtpMutation.isPending || (step === "phone" && timer > 0)}
+            disabled={
+              requestOtpMutation.isPending ||
+              verifyOtpMutation.isPending ||
+              (step === "phone" && timer > 0)
+            }
             className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition active:scale-[0.98] disabled:bg-blue-300 shadow-md shadow-blue-100"
           >
             {step === "phone"
-              ? timer > 0 
+              ? timer > 0
                 ? `Renvoyer dans ${timer}s`
-                : requestOtpMutation.isPending ? "envoi..." : "envoyer le code OTP"
-              : verifyOtpMutation.isPending ? "verification..." : "verifier le code OTP"}
+                : requestOtpMutation.isPending
+                  ? "envoi..."
+                  : "envoyer le code OTP"
+              : verifyOtpMutation.isPending
+                ? "verification..."
+                : "verifier le code OTP"}
           </button>
 
           {step === "otp" && (
@@ -157,7 +173,7 @@ const Login = () => {
               >
                 Modifier le numéro de téléphone
               </button>
-              
+
               {timer === 0 && (
                 <button
                   type="button"
@@ -178,13 +194,22 @@ const Login = () => {
           © 2026 RiLyQueue Maroc. Tous droits réservés.
         </div>
         <div className="flex items-center gap-6">
-          <a href="#" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold">
+          <a
+            href="#"
+            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold"
+          >
             <ShieldCheck size={14} /> Confidentialité
           </a>
-          <a href="#" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold">
+          <a
+            href="#"
+            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold"
+          >
             <Globe size={14} /> Conditions
           </a>
-          <a href="#" className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold">
+          <a
+            href="#"
+            className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-blue-600 transition font-semibold"
+          >
             <LifeBuoy size={14} /> Support
           </a>
         </div>
