@@ -1,19 +1,24 @@
 
 import Login from "./pages/Login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profil from "./pages/Profil.jsx";
 import Missions from "./pages/Missions.jsx";
 import { Litiges, AuditLogs } from "./pages/Placeholders.jsx";
 
+const DEV_MODE = true;
+
 export default function App() {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route path="/login" element={DEV_MODE ? <Navigate to="/" replace /> : <Login />} />
+
+      {/* Bypass Protection in DEV_MODE */}
+      <Route element={DEV_MODE ? <Layout /> : <ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path="/"           element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
         <Route path="/agents"     element={<AgentManagement />} />
         <Route path="/missions"   element={<Missions />} />
         <Route path="/litiges"    element={<Litiges />} />

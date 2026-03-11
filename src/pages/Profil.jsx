@@ -1,9 +1,17 @@
 import React from 'react';
 import { User, Phone, Shield, Clock, Lightbulb, LogOut } from 'lucide-react';
 import { useThemeStore } from '../store/useTheme';
+import { useAuthStore } from '../store/useStore';
+import { useLogout } from '../hooks/useLogin';
 
 export default function Profil() {
   const { darkMode, toggleDarkMode } = useThemeStore();
+  const user = useAuthStore((state) => state.user);
+  const logoutMutation = useLogout();
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <div className="flex flex-col items-center w-full max-w-3xl mx-auto py-8">
@@ -17,7 +25,7 @@ export default function Profil() {
           <div className="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center text-white mb-4 shadow-sm">
             <User className="w-12 h-12" strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Admin User</h2>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{user?.name || "Admin User"}</h2>
           <p className="text-slate-400 dark:text-slate-500 text-sm">Administrator</p>
         </div>
 
@@ -27,7 +35,7 @@ export default function Profil() {
         <div className="flex flex-col gap-4 mb-6">
           <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 text-sm font-medium">
             <Phone className="w-4 h-4 text-blue-500" />
-            <span>Phone: +212 6XX XXX 900</span>
+            <span>Phone: {user?.phone || "+212 6XX XXX XXX"}</span>
           </div>
           <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 text-sm font-medium">
             <Shield className="w-4 h-4 text-blue-500" />
@@ -70,9 +78,13 @@ export default function Profil() {
       {/* Account Actions Card */}
       <div className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-xl shadow-sm p-6">
         <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-4">Account Actions</h3>
-        <button className="w-full flex items-center justify-center gap-2 bg-[#f43f5e] hover:bg-rose-600 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-sm">
+        <button 
+          onClick={handleLogout}
+          disabled={logoutMutation.isPending}
+          className="w-full flex items-center justify-center gap-2 bg-[#f43f5e] hover:bg-rose-600 disabled:bg-rose-300 text-white font-medium py-3 px-4 rounded-lg transition-colors shadow-sm"
+        >
           <LogOut className="w-5 h-5" strokeWidth={2} />
-          Logout
+          {logoutMutation.isPending ? "Logging out..." : "Logout"}
         </button>
       </div>
 

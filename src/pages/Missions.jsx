@@ -18,7 +18,7 @@ const tableColumns = (onView) => [
     dataIndex: 'id',
     key: 'id',
     width: '6.25rem', 
-    render: (text) => <span className="font-semibold text-gray-600">{text}</span>,
+    render: (text) => <span className="font-semibold text-gray-600 dark:text-slate-200">{text}</span>,
   },
   {
     title: 'Client Phone',
@@ -60,7 +60,7 @@ const tableColumns = (onView) => [
     dataIndex: 'price',
     key: 'price',
     width: '6.25rem', 
-    render: (text) => <span className="font-semibold">{text}</span>,
+    render: (text) => <span className="font-semibold dark:text-slate-200">{text}</span>,
   },
   {
     title: 'Express',
@@ -84,7 +84,7 @@ const tableColumns = (onView) => [
     dataIndex: 'createdDate',
     key: 'createdDate',
     width: '9.375rem', 
-    render: (text) => <span className="text-gray-500 text-xs">{text}</span>,
+    render: (text) => <span className="text-gray-500 dark:text-slate-400 text-xs">{text}</span>,
   },
   {
     title: 'Action',
@@ -213,8 +213,8 @@ const Missions = () => {
   };
 
   return (
-    <section className="bg-white w-full h-full p-7 rounded-2xl shadow-sm border border-gray-100">
-      <h2 className="text-2xl font-bold mb-6 text-[#0f172a]">Mission Supervision</h2>
+    <section className="bg-white dark:bg-slate-800 w-full h-full p-7 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700/50">
+      <h2 className="text-2xl font-bold mb-6 text-[#0f172a] dark:text-slate-100">Mission Supervision</h2>
       
       <Space wrap className="w-full mb-8" size="middle">
         <Search
@@ -271,9 +271,9 @@ const Missions = () => {
 
       <Modal
         title={
-          <div className="flex items-center gap-2 text-xl border-b pb-3">
+          <div className="flex items-center gap-2 text-xl border-b dark:border-slate-700/50 pb-3">
             <InfoCircleOutlined className="text-blue-500" />
-            <span>Mission Details: <span className="text-gray-400 font-mono text-base">{selectedId}</span></span>
+            <span className="dark:text-slate-100">Mission Details: <span className="text-gray-400 font-mono text-base">{selectedId}</span></span>
           </div>
         }
         open={isModalOpen}
@@ -301,18 +301,18 @@ const Missions = () => {
         ) : missionDetail ? (
           <div className="py-4 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-              <div className="bg-gray-50 p-4 rounded-xl space-y-3 border border-gray-100">
+              <div className="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl space-y-3 border border-gray-100 dark:border-slate-700/50">
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Client Info</h3>
                 <div className="flex items-center gap-2">
                   <UserOutlined className="text-blue-400" />
-                  <span className="font-semibold text-base">{missionDetail.clientPhone}</span>
+                  <span className="font-semibold text-base dark:text-slate-200">{missionDetail.clientPhone}</span>
                 </div>
               </div>
-              <div className="bg-gray-50 p-4 rounded-xl space-y-3 border border-gray-100">
+              <div className="bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl space-y-3 border border-gray-100 dark:border-slate-700/50">
                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider">Agent Info</h3>
                 <div className="flex items-center gap-2">
                   <UserOutlined className="text-green-400" />
-                  <span className="font-semibold text-base">{missionDetail.agentPhone || 'Unassigned'}</span>
+                  <span className="font-semibold text-base dark:text-slate-200">{missionDetail.agentPhone || 'Unassigned'}</span>
                 </div>
               </div>
             </div>
@@ -321,13 +321,13 @@ const Missions = () => {
                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center gap-2">
                  <EnvironmentOutlined /> Location & Zone
                </h3>
-               <div className="p-4 border rounded-xl bg-blue-50/30 border-blue-100 italic text-gray-600">
+               <div className="p-4 border rounded-xl bg-blue-50/30 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 italic text-gray-600 dark:text-slate-400">
                  {missionDetail.address || 'Address detail not provided in API yet.'}
-                 <div className="mt-2 font-bold text-blue-600">Zone: {missionDetail.zone}</div>
+                 <div className="mt-2 font-bold text-blue-600 dark:text-blue-400">Zone: {missionDetail.zone}</div>
                </div>
             </div>
 
-            <div className="pt-4 border-t flex justify-between items-center text-sm">
+            <div className="pt-4 border-t dark:border-slate-700/50 flex justify-between items-center text-sm">
                <div className="text-gray-400 italic">Created at: {missionDetail.createdDate}</div>
                <Tag color={statusTags[missionDetail.status]?.color} className="rounded-full px-4">
                  {missionDetail.status}
