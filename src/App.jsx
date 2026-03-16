@@ -7,7 +7,8 @@ import AgentManagement from "./pages/Agentmanagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Profil from "./pages/Profil.jsx";
 import Missions from "./pages/Missions.jsx";
-import { Litiges, AuditLogs } from "./pages/Placeholders.jsx";
+import AuditLogs from "./pages/AuditLogs.jsx";
+import { Litiges } from "./pages/Placeholders.jsx";
 
 const DEV_MODE = true;
 

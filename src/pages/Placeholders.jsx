@@ -7,9 +7,6 @@ export function Litiges() {
   return <Placeholder title="Litiges" />;
 }
 
-export function AuditLogs() {
-  return <Placeholder title="Audit Logs" />;
-}
 
 function Placeholder({ title }) {
   return (
