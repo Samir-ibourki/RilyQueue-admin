@@ -4,11 +4,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AgentManagement from "./pages/Agentmanagement.jsx";
+import Litiges from "./pages/Litiges.jsx";
+
 import Dashboard from "./pages/Dashboard.jsx";
 import Profil from "./pages/Profil.jsx";
 import Missions from "./pages/Missions.jsx";
 import AuditLogs from "./pages/AuditLogs.jsx";
-import { Litiges } from "./pages/Placeholders.jsx";
+
 
 const DEV_MODE = true;
 
