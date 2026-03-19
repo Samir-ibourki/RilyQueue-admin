@@ -1,4 +1,4 @@
-import { requestOtp, verifyOtp } from "../api/authApi";
+import { logoutApi, requestOtp, verifyOtp } from "../api/authApi";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "../store/useStore";
@@ -24,6 +24,18 @@ export const useVerifyOtp = () => {
        
         alert("acces refuse : Vous n'avez pas les permissions necessaires.");
       }
+    },
+  });
+};
+export const useLogout = () => {
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+
+  return useMutation({
+    mutationFn: logoutApi,
+    onSettled: () => {
+      logout();
+      navigate("/login");
     },
   });
 };
