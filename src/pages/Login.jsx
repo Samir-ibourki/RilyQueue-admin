@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRequestOtp, useVerifyOtp } from "../hooks/useLogin";
+import { useAuthStore } from "../store/useStore";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [step, setStep] = useState("phone");
@@ -18,6 +20,8 @@ const Login = () => {
 
   const requestOtpMutation = useRequestOtp();
   const verifyOtpMutation = useVerifyOtp();
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
 
   // handle the cooldown timer
   useEffect(() => {
@@ -32,6 +36,13 @@ const Login = () => {
 
   const handleSendOtp = (e) => {
     e.preventDefault();
+    // Mock Login Bypass
+    if (phone === "0600000000") {
+      setStep("otp");
+      setTimer(60);
+      return;
+    }
+
     requestOtpMutation.mutate(
       { phone },
       {
@@ -45,6 +56,13 @@ const Login = () => {
 
   const handleVerifyOtp = (e) => {
     e.preventDefault();
+    // Mock Login Bypass
+    if (phone === "0600000000" && otp === "123456") {
+      login({ name: "Admin (Mock)", role: "admin", phone: "0600000000" }, "mock-token-123");
+      navigate("/");
+      return;
+    }
+
     verifyOtpMutation.mutate({ phone, otp });
   };
 

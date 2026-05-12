@@ -14,7 +14,7 @@ const DEV_MODE = true;
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={DEV_MODE ? <Navigate to="/" replace /> : <Login />} />
+      <Route path="/login" element={<Login />} />
 
       {/* Bypass Protection in DEV_MODE */}
       <Route element={DEV_MODE ? <Layout /> : <ProtectedRoute><Layout /></ProtectedRoute>}>
